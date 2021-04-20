@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kelime Tahmin Oyunu</title>
+    <link href="./statick/game.css"  rel="stylesheet">
+</head>
+<body>
+    <div class="scoreArea">
+        <div class="hightScore">High Scrore<div></div></div>
+        <div class="score">Score <div></div> </div>
+    </div>
+    <div class="gameArea">
+        <img class="wordImage" src="">
+        <div id="word"> </div>
+        <div class="guess"  id="option1"> </div>
+        <div class="guess" id="option2"> </div>
+        <div class="guess" id="option3"> </div>
+        <div class="guess" id="option4"> </div>
+        <div class="trueGuess">True Guess : <span> -</span></div>
+        <div class="remainWord">Remain Word : <span> -</span> </div>
+        <div class="nextWord">Geç</div>
+        <div class="showImageButton">Show</div>
+    </div>
+    <div class="tryAgain displayNone">Yeni Oyun </div>
+    <div class="resetButton displayNone">Oyunu Sıfırla</div>
+</body>
+<script>
+    let word = document.querySelector('#word'),
+    option1 = document.querySelector('#option1');
+    option2 = document.querySelector('#option2'),
+    option3 = document.querySelector('#option3'),
+    option4 = document.querySelector('#option4'),
+    allGuess = document.querySelectorAll('.guess'),
+    tryAgain = document.querySelector('.tryAgain'),
+    wordImage = document.querySelector('.wordImage'),
+    nextWord = document.querySelector('.nextWord'),
+    showImage = document.querySelector('.showImageButton'),
+    highScrore = document.querySelector('.hightScore div');
+    availableScore = document.querySelector('.score div');
+    resetGame = document.querySelector('.resetButton');
+    trueGuess = document.querySelector('.trueGuess span');
+    remainWord = document.querySelector('.remainWord span');
+    availableScoreNumber = 0;
+    availableScore.innerText = availableScoreNumber;
+    highScroreData = [];
+    let data = [];
+    let  randomDizilis = [];
+    let randomKelime = [],
+    knowNumberData = 0,gameOver = 4;
+    let optionNumber = 4;
+    let selectedWord;
+    let yhttp = new XMLHttpRequest();
+    yhttp.open("GET","./admin/highScore.json",true)
+    yhttp.send();
+    yhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            highScroreData = JSON.parse(this.responseText);
+            highScrore.innerText = highScroreData[0].highScore;
+        }
+    };
+    function dataLoad(){ 
+        let xhttp = new XMLHttpRequest();
+        xhttp.open("GET","./admin/aslan.json",true)
+        xhttp.send();
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                data = JSON.parse(this.responseText);
+                let x = 0;
+                let trigger = setInterval(function(){
+                    if(x < data.length){
+                        if(data[x].knowNumber < 2){
+                            knowNumberData++;                            
+                        }
+                        x++;
+                    }else{
+                        remainWord.innerText = knowNumberData;
+                        startingGame();
+                        clearInterval(trigger);
+                    }
+                });
+            }
+        };
+    }
+    dataLoad();
+    function rasgetleDizilis(number, diziName){
+        let trigger = setInterval(function(){
+            if(diziName.length < optionNumber){ 
+                let randomNumber = Math.floor(Math.random() * number); 
+                let searchresult = diziName.findIndex(i => i == randomNumber);
+                if(searchresult == -1){ 
+                    diziName.push(randomNumber);
+                } 
+            }else{
+                randomWord(data.length, randomKelime);
+                clearInterval(trigger);
+            }
+        }); 
+    };
+    function randomWord(number, diziName){
+        if(knowNumberData < gameOver){
+            console.log('Oyun Bitti');
+            resetGame.classList.remove('displayNone');
+            
+        }else{
+            let trigger = setInterval(function(){
+                if(diziName.length < optionNumber){ 
+                    let randomNumber = Math.floor(Math.random() * number); 
+                    let searchresult = diziName.findIndex(i => i == randomNumber);
+                    if(searchresult == -1){
+                        if(data[randomNumber].knowNumber < 2){
+                            diziName.push(randomNumber);  
+                        }
+                    }
+                }else{
+                    clearInterval(trigger);
+                    createOption();
+                }
+            }); 
+        }
+    }
+    function startingGame(){
+        wordImage.classList.remove('showImage');
+        if(!tryAgain.classList.contains('displayNone')){
+            tryAgain.classList.add('displayNone');
+            wordImage.classList.remove('showImage');
+        }
+        for(let x = 0; x < allGuess.length; x++){
+            allGuess[x].className = 'guess';
+        }
+        randomDizilis = [];
+        randomKelime = [];
+        rasgetleDizilis(4, randomDizilis);
+    }
+    function createOption(){
+        selectedWord =  Math.floor(Math.random() * optionNumber);
+        wordImage.src= './resim/'+data[randomKelime[selectedWord]].resimYol;
+        word.innerText = data[randomKelime[selectedWord]].kelime;
+        trueGuess.innerText = data[randomKelime[selectedWord]].knowNumber;
+        
+        option1.innerText = data[randomKelime[randomDizilis[0]]].isim;
+        option1.innerText += ' '+data[randomKelime[randomDizilis[0]]].sifat;
+        option1.innerText += ' '+data[randomKelime[randomDizilis[0]]].zarf;
+        option1.innerText += ' '+data[randomKelime[randomDizilis[0]]].fiil;
+        option1.dataset.Wordmeaning = data[randomKelime[randomDizilis[0]]].kelime;
+
+        option2.innerText = ' '+data[randomKelime[randomDizilis[1]]].isim;
+        option2.innerText += ' '+data[randomKelime[randomDizilis[1]]].sifat;
+        option2.innerText += ' '+data[randomKelime[randomDizilis[1]]].zarf;
+        option2.innerText += ' '+data[randomKelime[randomDizilis[1]]].fiil;
+        option2.dataset.Wordmeaning = data[randomKelime[randomDizilis[1]]].kelime;
+
+        option3.innerText = data[randomKelime[randomDizilis[2]]].isim;
+        option3.innerText += ' '+data[randomKelime[randomDizilis[2]]].sifat;
+        option3.innerText += ' '+data[randomKelime[randomDizilis[2]]].zarf;
+        option3.innerText += ' '+data[randomKelime[randomDizilis[2]]].fiil;
+        option3.dataset.Wordmeaning = data[randomKelime[randomDizilis[2]]].kelime;
+
+
+        option4.innerText = data[randomKelime[randomDizilis[3]]].isim;
+        option4.innerText += ' '+data[randomKelime[randomDizilis[3]]].sifat;
+        option4.innerText += ' '+data[randomKelime[randomDizilis[3]]].zarf;
+        option4.innerText += ' '+data[randomKelime[randomDizilis[3]]].fiil;
+        option4.dataset.Wordmeaning = data[randomKelime[randomDizilis[3]]].kelime;
+    }
+    tryAgain.addEventListener('click',function(){
+        if(availableScoreNumber > highScroreData[0].highScore){
+            highScroreData[0].highScore = availableScoreNumber;
+            highScrore.innerText = highScroreData[0].highScore;
+            
+            let xhttp = new XMLHttpRequest();
+            xhttp.open("POST","./admin/function.php",true);
+            xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xhttp.send("NewhighScore="+true+"&score="+availableScoreNumber);
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200 ){
+                    availableScoreNumber = 0;
+                    availableScore.innerText = availableScoreNumber;
+                    startingGame();
+                }
+            }
+        }else{ startingGame(); }
+    });
+    resetGame.addEventListener('click',function(){
+        let xhttp = new XMLHttpRequest();
+        xhttp.open("POST","./admin/function.php",true);
+        xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xhttp.send("gameReset="+true);
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200 ){
+                console.log('Oyun Sıfırlandı');
+            }
+        };
+        knowNumberData = 0 ;
+        dataLoad();
+        setTimeout(() => {
+            startingGame();
+        }, 200);
+    });
+    //Şıklara tıklandığında gerçekleşecek olayların kodlandığı blok
+    for(let x = 0; x < allGuess.length; x++){
+        allGuess[x].addEventListener('click',function(){
+            let Wordmeaning = this.dataset.Wordmeaning; 
+            let selectedWordText = word.innerText;
+            let selectedWordId = randomKelime[selectedWord];
+            if( Wordmeaning == selectedWordText){
+                data[selectedWordId].knowNumber = data[selectedWordId].knowNumber +1;
+                if(data[selectedWordId].knowNumber == 2){
+                    knowNumberData--;
+                    remainWord.innerText = knowNumberData;
+                }
+                this.classList.add('true');
+                let xhttp = new XMLHttpRequest();
+                xhttp.open("POST","./admin/function.php",true);
+                xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xhttp.send("knowNumberincrease="+true+"&id="+selectedWordId);
+                xhttp.onreadystatechange = function(){
+                    if(this.readyState == 4 && this.status == 200 ){
+                        data[selectedWordId].knowNumber = +1;
+                        availableScoreNumber++;
+                        availableScore.innerText = availableScoreNumber;
+                        setTimeout(() => {
+                            startingGame();
+                        },800);
+                    }
+                }
+            }else{
+                for(let x = 0; x < allGuess.length; x++){
+                    if(allGuess[x].dataset.Wordmeaning !== word.innerText ){
+                        allGuess[x].classList.add('false');
+                    }else{
+                        let selectedWordId = randomKelime[x];
+                        allGuess[x].classList.add('true');
+                    }
+                }
+                let xhttp = new XMLHttpRequest();
+                xhttp.open("POST","./admin/function.php",true);
+                xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xhttp.send("knowNumberdecrease="+true+"&id="+selectedWordId);
+                xhttp.onreadystatechange = function(){
+                    if(this.readyState == 4 && this.status == 200 ){
+                        data[selectedWordId].knowNumber = -1;
+                       tryAgain.classList.remove('displayNone');
+                       wordImage.classList.add('showImage');
+                    }
+                }
+            }
+        });
+    }
+
+    nextWord.addEventListener('click',function(){
+        startingGame();
+    });
+
+    showImage.addEventListener('click',function(){
+         wordImage.classList.add('showImage');
+    });
+
+
+</script>
+</html>

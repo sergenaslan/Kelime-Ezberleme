@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kelime Ekleme Sayfası</title>
+    <style>
+        #kelime{text-transform: capitalize;}
+        *{font-family: Arial, Helvetica, sans-serif;padding:0;margin:0;list-style-type:none;}
+        body{text-align: center; padding-top: 15vh;background: #e89b9b;}
+        input{margin:0 auto;display: inline;}
+        input[type=text]{ margin:0 auto;margin-bottom: 20px;padding:5px}
+        input:nth-child(3){margin-bottom: 2px;}
+        input[type=submit]{background: rgb(216, 105, 105);border:none;
+        padding: 5px 30px;color:white;border-radius: 5px;margin-top: 20px;
+        cursor: pointer;border-bottom:3px solid #313131;}
+        input[type=submit]:hover{border-bottom: none;position: relative;top:3px;}
+        .searchArea{ position: absolute;top: 0px;width: 330px;height: 90px;}
+        .searchArea div {position: relative;width: 100%;height: 100%;}
+        .searchArea div input{text-transform: capitalize;position: absolute;top: 10px;
+            left:0;border: 1px solid #333333;outline: none;background: none;height: 20px;
+            border-radius: 50px;padding:12px 0;padding-left: 10px;box-sizing: border-box;}
+        .searchArea div button{position: relative;top: 10px;left: 50px;
+            padding: 5px;
+            background: none;
+            border:1px solid black; 
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .searchArea div .output{
+            position: relative;
+            top: 15px;
+            text-align: left;
+            padding-left: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="searchArea">
+        <div>
+            <input placeholder="Kelime Giriniz"/>
+            <button>Search</button>
+            <p class="output"></p>
+        </div>
+    </div>
+    <form action="function.php" method="post" enctype="multipart/form-data">
+        <div>
+            <input placeholder="Kelime" type="text" id="kelime" name="kelime"  autocomplete="off"/><br>
+        </div>
+        <div>
+            <input placeholder="Okunuşu" type="text" name="okunus" autocomplete="off"/>
+        </div>
+        <div>
+            <input placeholder="isim kelimesi" type="text" name="isim" autocomplete="off"/><br/>
+        </div>
+        <div>
+            <input placeholder="sıfat kelimesi" type="text" name="sifat" autocomplete="off"/><br/>
+        </div>
+        <div>
+            <input placeholder="zarf kelimesi" type="text" name="zarf" autocomplete="off"/><br/>
+        </div>
+        <div>
+            <input placeholder="fiil kelimesi" type="text" name="fiil" autocomplete="off"/><br/>
+        </div>
+        <input type="file" name="foto"/><br/>
+        <input type="submit" value="Ekle" name="ekleme"/><br/>
+    </form>
+</body>
+<script>
+    let data = [];
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET","aslan.json",true)
+    xhttp.send();
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            data = JSON.parse(this.responseText);
+        }
+    }
+    let searchButton = document.querySelector('button');
+    let searchText = document.querySelector('input');
+    let output = document.querySelector('.output');
+    searchButton.addEventListener('click',function(){
+        if(searchText.value == ''){
+            alert('Lütfen Kelime Giriniz');
+        }else{
+            let searchresult = data.findIndex(i => i.kelime == searchText.value);
+            if(searchresult !== -1){
+                output.innerText = 'Kelime var';
+            }else{
+                output.innerText = 'Kelime yok';
+            }
+        }
+    });
+</script>
+</html>
