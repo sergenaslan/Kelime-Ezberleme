@@ -21,18 +21,20 @@ kategorisi değiştirebilinir
 <br>  
 ![acılamdığında gös](https://github.com/sergenaslan/Kelime-Ezberleme/blob/main/statick/kategori.png)
 #
-### Kelime Eşletirme Oyunu
-Daha öncede ezberlenmiş olunan kelimeleri unutmamak ve tekrarlamak adına bu kelimeler üzerinde çalışabilmek için kodlanmıştır.
-alt kısımda yer alan ingilizce kelimelerin anlamlarını sürükleyerek doğru ingilizce kelimesinin üzerine bırakarak eşleştirmeyi yapabilirisniz.
-![acılamdığında gös](https://github.com/sergenaslan/Kelime-Ezberleme/blob/main/statick/kategori.png)
-
-<br>
-#
 ### Kelime Tahmin Oyunu
-Daha öncede ezberlemiş olunan kelimeleri unutmamak adına bu kelimeler üzerinde oyun oyanayarak çalışabilmemizi sağlama
-amacı ile kodlanmış oyundur
+Daha öncede ezberlenmiş olunan kelimeleri unutmamak ve tekrarlamak adına bu kelimeler üzerinde çalışabilmek için bu oyun geliştirilmiştir. <br>
+Alt kısımda yer alan ingilizce kelimelerin anlamlarını sürükleyerek üst kısımdaki doğru ingilizce kelimesinin üzerine bırakarak eşleştirmeyi yapabilirisniz.<br>
+![acılamdığında gös](https://github.com/sergenaslan/Kelime-Ezberleme/blob/main/statick/drag-drop-game.png)
+
+#
+### Kelime Eşletirme Oyunu
+Daha öncede ezberlenmiş olunan kelimeleri unutmamak ve tekrarlamak adına bu kelimeler üzerinde çalışabilmek için bu oyun geliştirilmiştir. <br>
+Üst kısımdaki ingilizce kelimenin anlamını aşşağıdaki şıklardan doğru olanını tıklayarak oyunu oyanayabilirsiniz.
 <br>
-![acılamdığında gös](https://github.com/sergenaslan/Kelime-Ezberleme/blob/main/statick/oyun.png) <br>
+
+![acılamdığında gös](https://github.com/sergenaslan/Kelime-Ezberleme/blob/main/statick/oyun.png)
+<br>
+
 Aşşağıdaki Show butonu ile kelimenin görselini görebilir ve Geç butonu ile  bir sonraki kelimeye geçilebilinir.
 ### Yeni Kelime Ekleme
 domain nin sonuna /admin yazarak kelime ekleme sayfasına ulaşabilir ve aşşağıda resimde gözüken ilgili alanları <br>
