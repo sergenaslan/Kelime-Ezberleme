@@ -1,4 +1,4 @@
-## inglizce Kelime Ezberleme
+## İnglizce Kelime Ezberleme ve Oyun Programı
 ### Projenin Amacı 
 Görsel hafızası güçlü olan kişilerin ingilizce kelimeyi kendi seçtiği kendi bulduğu resim ile bağdaştırıp. Sisteme yükleyip daha hızlı ve kolay bir şekilde 
 ingligizce kelimeyi öğrenme ve akılda kalmasını sağlamaktadır. <br>
@@ -20,6 +20,13 @@ ve gözlüklü emoji ise sırada bekleyen kelimelerin kategorisini ifade eder. B
 kategorisi değiştirebilinir
 <br>  
 ![acılamdığında gös](https://github.com/sergenaslan/Kelime-Ezberleme/blob/main/statick/kategori.png)
+#
+### Kelime Eşletirme Oyunu
+Daha öncede ezberlenmiş olunan kelimeleri unutmamak ve tekrarlamak adına bu kelimeler üzerinde çalışabilmek için kodlanmıştır.
+alt kısımda yer alan ingilizce kelimelerin anlamlarını sürükleyerek doğru ingilizce kelimesinin üzerine bırakarak eşleştirmeyi yapabilirisniz.
+![acılamdığında gös](https://github.com/sergenaslan/Kelime-Ezberleme/blob/main/statick/kategori.png)
+
+<br>
 #
 ### Kelime Tahmin Oyunu
 Daha öncede ezberlemiş olunan kelimeleri unutmamak adına bu kelimeler üzerinde oyun oyanayarak çalışabilmemizi sağlama
