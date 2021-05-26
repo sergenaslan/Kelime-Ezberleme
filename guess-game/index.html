@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Kelime Tahmin Oyunu</title>
-    <link href="./statick/game.css"  rel="stylesheet">
+    <link href="../statick/game.css"  rel="stylesheet">
 </head>
 <body>
     <div class="scoreArea">
@@ -53,7 +53,7 @@
     let optionNumber = 4;
     let selectedWord;
     let yhttp = new XMLHttpRequest();
-    yhttp.open("GET","./admin/highScore.json",true)
+    yhttp.open("GET","../admin/highScore.json",true)
     yhttp.send();
     yhttp.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
@@ -63,7 +63,7 @@
     };
     function dataLoad(){ 
         let xhttp = new XMLHttpRequest();
-        xhttp.open("GET","./admin/aslan.json",true)
+        xhttp.open("GET","../admin/aslan.json",true)
         xhttp.send();
         xhttp.onreadystatechange = function(){
             if(this.readyState == 4 && this.status == 200){
@@ -171,7 +171,7 @@
             highScrore.innerText = highScroreData[0].highScore;
             
             let xhttp = new XMLHttpRequest();
-            xhttp.open("POST","./admin/function.php",true);
+            xhttp.open("POST","../admin/function.php",true);
             xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
             xhttp.send("NewhighScore="+true+"&score="+availableScoreNumber);
             xhttp.onreadystatechange = function(){
@@ -185,7 +185,7 @@
     });
     resetGame.addEventListener('click',function(){
         let xhttp = new XMLHttpRequest();
-        xhttp.open("POST","./admin/function.php",true);
+        xhttp.open("POST","../admin/function.php",true);
         xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         xhttp.send("gameReset="+true);
         xhttp.onreadystatechange = function(){
@@ -213,7 +213,7 @@
                 }
                 this.classList.add('true');
                 let xhttp = new XMLHttpRequest();
-                xhttp.open("POST","./admin/function.php",true);
+                xhttp.open("POST","../admin/function.php",true);
                 xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
                 xhttp.send("knowNumberincrease="+true+"&id="+selectedWordId);
                 xhttp.onreadystatechange = function(){
@@ -236,7 +236,7 @@
                     }
                 }
                 let xhttp = new XMLHttpRequest();
-                xhttp.open("POST","./admin/function.php",true);
+                xhttp.open("POST","../admin/function.php",true);
                 xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
                 xhttp.send("knowNumberdecrease="+true+"&id="+selectedWordId);
                 xhttp.onreadystatechange = function(){

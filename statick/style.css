@@ -241,19 +241,28 @@ body h1{
     bottom: 15px;
     text-align: center;
 }
-
-.game{
-    position: absolute;
-    top: 52px;
-    left: 17px;
+.guesGame,
+.dragDropGame{
     border: 1px solid white;
     padding: 7px;
     border-radius: 5px;
+    position: absolute;
+    left: 17px;
 }
-.game a{
+.guesGame{
+    top: 52px;
+}
+
+.dragDropGame{
+    top: 100px;
+}
+.guesGame a,
+.dragDropGame a{
     text-decoration: none;
     color:white;
 }
+
+
 @keyframes ani{
     0% {
         transform: rotateY(0);
